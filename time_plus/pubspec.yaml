@@ -1,0 +1,12 @@
+name: time_plus
+description: "Extensions for DateTime and Duration to easily add, convert, and work with time in Dart."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^2.19.0
+
+dependencies:
+
+dev_dependencies:
+  test: ^1.26.1
