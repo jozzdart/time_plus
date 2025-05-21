@@ -1,3 +1,51 @@
+## 0.0.6
+
+Comprehensive DateTime extensions for adding time units with proper handling of edge cases and calendar rules.
+
+- `DateTimeAddDurationExtension` extension on `DateTime` class:
+
+  - Methods for adding standard time units:
+    - `addMilliseconds`: Add milliseconds with precise control
+    - `addSeconds`: Add seconds with proper overflow handling
+    - `addMinutes`: Add minutes with automatic hour adjustment
+    - `addHours`: Add hours with automatic day adjustment
+    - `addDays`: Add days with proper month/year handling
+    - `addWeeks`: Add weeks using standard 7-day calculation
+  - Convenience getters for single unit additions:
+    - `addMillisecond`: Add exactly one millisecond
+    - `addSecond`: Add exactly one second
+    - `addMinute`: Add exactly one minute
+    - `addHour`: Add exactly one hour
+    - `addDay`: Add exactly one day
+    - `addWeek`: Add exactly one week
+
+- `DateTimeAddMonthsAndYearsExtension` extension on `DateTime` class:
+
+  - Methods for calendar-aware additions:
+    - `addMonths`: Add months with proper day clamping
+    - `addYears`: Add years with leap year handling
+  - Convenience getters:
+    - `addMonth`: Add exactly one month
+    - `addYear`: Add exactly one year
+  - Smart handling of edge cases:
+    - Month overflow (e.g., January 31 + 1 month)
+    - Leap year transitions
+    - Year boundaries
+    - Invalid date combinations
+
+- `DateTimeAddExtendingYearsExtension` extension on `DateTime` class:
+
+  - Methods for long-term additions:
+    - `addDecades`: Add decades with proper year calculation
+    - `addCenturies`: Add centuries with proper decade calculation
+  - Convenience getters:
+    - `addDecade`: Add exactly one decade
+    - `addCentury`: Add exactly one century
+
+- Added Comprehensive tests and detailed API documentation with examples, edge case handling, and best practices.
+
+- Refactored time constants into a unified `TimePlusConsts` class, removing the separate `TimePlusDurationConsts` for better maintainability and consistency across the library.
+
 ## 0.0.5
 
 Added duration remainder extraction functionality with comprehensive test coverage.
