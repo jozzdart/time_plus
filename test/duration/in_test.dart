@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
-import 'package:time_plus/duration/in.dart';
-import 'package:time_plus/duration/consts.dart';
+import 'package:time_plus/time_plus.dart';
 
 void main() {
   group('DurationInGettersExtensions', () {
@@ -54,9 +53,9 @@ void main() {
         expect(const Duration(days: 7).asWeeks, equals(1.0));
         expect(const Duration(days: 14).asWeeks, equals(2.0));
         expect(const Duration(days: 3).asWeeks,
-            equals(3 / TimePlusDurationConsts.daysInWeek));
+            equals(3 / TimePlusConsts.daysInWeek));
         expect(const Duration(days: 10).asWeeks,
-            equals(10 / TimePlusDurationConsts.daysInWeek));
+            equals(10 / TimePlusConsts.daysInWeek));
       });
     });
 
@@ -65,9 +64,9 @@ void main() {
         expect(const Duration(days: 30).asMonths, equals(1.0));
         expect(const Duration(days: 60).asMonths, equals(2.0));
         expect(const Duration(days: 15).asMonths,
-            equals(15 / TimePlusDurationConsts.daysInMonth));
+            equals(15 / TimePlusConsts.daysInMonth));
         expect(const Duration(days: 45).asMonths,
-            equals(45 / TimePlusDurationConsts.daysInMonth));
+            equals(45 / TimePlusConsts.daysInMonth));
       });
     });
 
@@ -76,9 +75,9 @@ void main() {
         expect(const Duration(days: 365).asYears, equals(1.0));
         expect(const Duration(days: 730).asYears, equals(2.0));
         expect(const Duration(days: 182).asYears,
-            equals(182 / TimePlusDurationConsts.daysInYear));
+            equals(182 / TimePlusConsts.daysInYear));
         expect(const Duration(days: 547).asYears,
-            equals(547 / TimePlusDurationConsts.daysInYear));
+            equals(547 / TimePlusConsts.daysInYear));
       });
     });
 
@@ -87,9 +86,9 @@ void main() {
         expect(const Duration(days: 3650).asDecades, equals(1.0));
         expect(const Duration(days: 7300).asDecades, equals(2.0));
         expect(const Duration(days: 1825).asDecades,
-            equals(1825 / TimePlusDurationConsts.daysInDecade));
+            equals(1825 / TimePlusConsts.daysInDecade));
         expect(const Duration(days: 5475).asDecades,
-            equals(5475 / TimePlusDurationConsts.daysInDecade));
+            equals(5475 / TimePlusConsts.daysInDecade));
       });
     });
 
@@ -98,9 +97,9 @@ void main() {
         expect(const Duration(days: 36500).asCenturies, equals(1.0));
         expect(const Duration(days: 73000).asCenturies, equals(2.0));
         expect(const Duration(days: 18250).asCenturies,
-            equals(18250 / TimePlusDurationConsts.daysInCentury));
+            equals(18250 / TimePlusConsts.daysInCentury));
         expect(const Duration(days: 54750).asCenturies,
-            equals(54750 / TimePlusDurationConsts.daysInCentury));
+            equals(54750 / TimePlusConsts.daysInCentury));
       });
     });
 

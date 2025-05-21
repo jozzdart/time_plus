@@ -11,11 +11,14 @@
 ///
 /// Designed with simplicity and clarity in mind.
 /// No dependencies. Just useful time extensions.
-library time_plus;
+library;
 
 export 'duration/add.dart';
-export 'duration/in.dart';
-export 'duration/consts.dart';
 export 'duration/from.dart';
+export 'duration/in.dart';
 export 'duration/only.dart';
 export 'duration/without.dart';
+export 'date_time/add/durations.dart';
+export 'date_time/add/extending_years.dart';
+export 'date_time/add/month_and_year.dart';
+export 'core/consts.dart';

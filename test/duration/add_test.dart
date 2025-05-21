@@ -130,7 +130,7 @@ void main() {
     });
 
     test('addMonths produces expected day count', () {
-      final expected = Duration(days: 3 * TimePlusDurationConsts.daysInMonth);
+      final expected = Duration(days: 3 * TimePlusConsts.daysInMonth);
       expect(base.addMonths(3), expected);
     });
 
