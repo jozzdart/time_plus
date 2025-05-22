@@ -1,4 +1,4 @@
-import '../core/consts.dart';
+import '../consts.dart';
 
 extension DateTimeBoundariesExtensions on DateTime {
   /// Returns a [DateTime] representing the start of the current millisecond.

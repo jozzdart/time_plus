@@ -1,4 +1,4 @@
-import '../../core/consts.dart';
+import '../../consts.dart';
 import 'month_and_year.dart';
 
 /// Extension on [DateTime] to add decades and centuries, with proper handling of year overflow.
