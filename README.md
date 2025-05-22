@@ -23,6 +23,7 @@ Stop wrestling with `DateTime` and `Duration`. `time_plus` gives you the tools y
 - [**add**](#-add--add-time-to-a-datetime) – Add time units to `DateTime` from milliseconds to centuries with `.addX()` or `.addX` getters.
 - [**isSame**](#-issame--compare-temporal-precision) – Compare two dates by year, month, day, hour, to microseconds using `isSameX()`.
 - [**startOf / endOf**](#-startof--endof--datetime-boundaries) – Get start or end of time units: minute, hour, day, week, month, year.
+- [**next**](#️-next--find-the-next-matching-datetime) – Find the next matching `DateTime` by weekday or time of day.
 - [**leap**](#-leap--leap-year-month-and-day-detection) – Check if `DateTime` is in a leap year, leap month, or on leap day (Feb 29).
 - [**yesterday / tomorrow**](#-yesterday--tomorrow--relative-day-helpers) – Get yesterday or tomorrow with `.yesterday` or `.tomorrow` getters.
 
@@ -142,6 +143,30 @@ now.endOfMonth;   // → 2024-05-01 00:00:00
 ```
 
 These methods respect the original timezone (`local` or `UTC`).
+
+_[⤴️ Back](#table-of-contents) -> Table of Contents_
+
+---
+
+### ⏭️ `next` — Find the Next Matching `DateTime`
+
+Easily find the **next time** that matches a specific weekday or time of day — skipping the current moment even if it matches. Useful for scheduling recurring events, alarms, or reminders.
+
+- `nextWeekdayTime(weekday, ...)`
+  → Returns the next occurrence of a specific weekday (1–7, Monday–Sunday), with optional time.
+- `nextTimeOfDay(hour, ...)`
+  → Returns the next time that matches the given time of day (tomorrow if already passed today).
+
+These respect the original timezone (UTC/local) and guarantee forward-only results.
+
+#### 🧪 Example
+
+```dart
+final now = DateTime(2024, 4, 20, 15); // Saturday
+
+now.nextWeekdayTime(1, hour: 9); // → Monday 09:00
+now.nextTimeOfDay(hour: 8);      // → Tomorrow 08:00
+```
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 

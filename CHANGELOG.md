@@ -1,3 +1,10 @@
+## 1.1.6
+
+- Added `DateTimeNextExtensions` extension on `DateTime` class:
+  - Advanced date navigation methods:
+    - `nextWeekdayTime`: Find the next occurrence of a specific weekday with optional time
+    - `nextTimeOfDay`: Find the next time matching a specific time of day
+
 ## 1.1.5
 
 - Added `DateTimeWeekdayExtensions` extension on `DateTime` class:
