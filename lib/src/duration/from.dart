@@ -1,4 +1,4 @@
-import '../core/consts.dart';
+import '../consts.dart';
 
 /// A utility class for creating [Duration] instances from various time units.
 class DurationFrom {

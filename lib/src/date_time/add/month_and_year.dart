@@ -1,4 +1,4 @@
-import '../../core/consts.dart';
+import '../../consts.dart';
 
 /// Extension on [DateTime] to add months and years, with proper handling of month overflow and leap years.
 extension DateTimeAddMonthsAndYearsExtension on DateTime {

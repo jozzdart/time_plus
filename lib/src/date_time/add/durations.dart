@@ -1,4 +1,4 @@
-import '../../core/consts.dart';
+import '../../consts.dart';
 
 /// Extension on [DateTime] to add various durations.
 extension DateTimeAddDurationExtension on DateTime {

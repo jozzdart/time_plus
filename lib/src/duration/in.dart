@@ -1,4 +1,4 @@
-import '../core/consts.dart';
+import '../consts.dart';
 
 extension DurationInGettersExtensions on Duration {
   /// The number of entire weeks in this duration (7 days per week).

@@ -1,4 +1,4 @@
-import '../core/consts.dart';
+import '../consts.dart';
 
 /// An extension on the `DateTime` class to provide methods for comparing
 /// temporal precision between two `DateTime` instances.
