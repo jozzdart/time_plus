@@ -1,4 +1,4 @@
-## 1.0.4
+## 1.1.4
 
 Added detailed README for enhanced user experience.
 
@@ -16,7 +16,7 @@ Added detailed README for enhanced user experience.
   - Examples with use cases, edge cases, chainable operations, calendar-aware calculations
   - Support: License, support link, branding
 
-## 1.0.3
+## 1.1.3
 
 Added comprehensive DateTime boundary functionality with extensive test coverage.
 
@@ -49,7 +49,7 @@ Added comprehensive DateTime boundary functionality with extensive test coverage
     - Microsecond precision
     - Cross-century transitions
 
-## 1.0.2
+## 1.1.2
 
 Added comprehensive temporal precision comparison functionality with extensive test coverage.
 
@@ -81,7 +81,7 @@ Added comprehensive temporal precision comparison functionality with extensive t
     - Time zone consistency
     - Edge case handling
 
-## 1.0.1
+## 1.1.1
 
 Added comprehensive leap year functionality with extensive test coverage.
 
@@ -96,7 +96,7 @@ Added comprehensive leap year functionality with extensive test coverage.
   - Invalid date combinations
 - Comprehensive test suite
 
-## 1.0.0
+## 1.1.0
 
 Comprehensive DateTime extensions for adding time units with proper handling of edge cases and calendar rules.
 
@@ -144,7 +144,7 @@ Comprehensive DateTime extensions for adding time units with proper handling of 
 
 - Refactored time constants into a unified `TimePlusConsts` class, removing the separate `TimePlusDurationConsts` for better maintainability and consistency across the library.
 
-## 0.0.5
+## 1.0.0
 
 Added duration remainder extraction functionality with comprehensive test coverage.
 
