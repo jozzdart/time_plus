@@ -1,3 +1,13 @@
+## 1.1.5
+
+- Added `DateTimeWeekdayExtensions` extension on `DateTime` class:
+  - Day navigation getters:
+    - `yesterday`: Returns start of previous day
+    - `tomorrow`: Returns start of next day
+  - Weekday navigation getters:
+    - `nextWeekday`: Returns weekday number of next day
+    - `previousWeekday`: Returns weekday number of previous day
+
 ## 1.1.4
 
 Added detailed README for enhanced user experience.

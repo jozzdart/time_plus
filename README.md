@@ -1,24 +1,52 @@
 ![img](https://i.imgur.com/vhAP7NO.png)
 
 <h3 align="center"><i>Make every microsecond count.</i></h3>
+<p align="center">
+        <img src="https://img.shields.io/codefactor/grade/github/jozzzzep/time_plus/main?style=flat-square">
+        <img src="https://img.shields.io/github/license/jozzzzep/time_plus?style=flat-square">
+        <img src="https://img.shields.io/pub/points/time_plus?style=flat-square">
+        <img src="https://img.shields.io/pub/v/time_plus?style=flat-square">
+        
+</p>
+<p align="center">
+  <a href="https://buymeacoffee.com/yosefd99v" target="https://buymeacoffee.com/yosefd99v">
+    <img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-Support (:-blue?logo=buymeacoffee&style=flat-square" />
+  </a>
+</p>
 
 Stop wrestling with `DateTime` and `Duration`. `time_plus` gives you the tools you wish Dart had built in—add time units, break durations down, convert across scales, and do it all with a clear, predictable API. No dependencies. Just useful extensions that make working with time easier.
 
-### Table of Contents
+## Table of Contents
 
-- 📅 `DateTime+`
+#### 📅 `DateTime`
 
-  - [**➕ Add**](#-add--add-time-to-a-datetime) – Add any unit to a `DateTime`, from milliseconds to centuries, with overflow-safe `.addX()` or `.addX` getters.
-  - [**🧩 isSame**](#-issame--compare-temporal-precision) – Compare two dates by year, month, day, hour, and down to microseconds with `isSameX()`.
-  - [**🧱 startOf/endOf**](#-startof--endof--datetime-boundaries) – Get the start or end of any time unit — minute, hour, day, week, month, or year.
-  - [**🐸 leap**](#-leap--leap-year-month-and-day-detection) – Determine if a `DateTime` is in a leap year, leap month, or on leap day (Feb 29).
+- [**add**](#-add--add-time-to-a-datetime) – Add time units to `DateTime` from milliseconds to centuries with `.addX()` or `.addX` getters.
+- [**isSame**](#-issame--compare-temporal-precision) – Compare two dates by year, month, day, hour, to microseconds using `isSameX()`.
+- [**startOf / endOf**](#-startof--endof--datetime-boundaries) – Get start or end of time units: minute, hour, day, week, month, year.
+- [**leap**](#-leap--leap-year-month-and-day-detection) – Check if `DateTime` is in a leap year, leap month, or on leap day (Feb 29).
+- [**yesterday / tomorrow**](#-yesterday--tomorrow--relative-day-helpers) – Get yesterday or tomorrow with `.yesterday` or `.tomorrow` getters.
 
-- ⏱️ `Duration+`
-  - [**➕ Add**](#-add--add-time-units-to-a-duration) – Chain any time unit, from microseconds to centuries, with `.addX()` or `.addX` getters.
-  - [**🏗️ Factories**](#️-factories--create-durations-from-any-unit) – Create durations from any unit or use built-in constants like `DurationFrom.year`.
-  - [**🧮 in**](#-in--convert-duration-to-whole-units) – Convert durations into whole units like `inWeeks`, `inYears`, or `inCenturies`.
-  - [**🧩 only**](#-only--break-down-duration-by-remaining-units) – Extract the remainder after subtracting larger units (e.g. `onlyMinutes`, `onlySeconds`).
-  - [**🧼 without**](#-without--remove-full-units-from-a-duration) – Strip full units to isolate what’s left (e.g. time since midnight).
+#### ⏱️ `Duration`
+
+- [**add**](#-add--add-time-units-to-a-duration) – Chain any time unit, from microseconds to centuries, with `.addX()` or `.addX` getters.
+- [**in**](#-in--convert-duration-to-whole-units) – Convert durations into whole units like `inWeeks`, `inYears`, or `inCenturies`.
+- [**only**](#-only--break-down-duration-by-remaining-units) – Extract the remainder after subtracting larger units (e.g. `onlyMinutes`, `onlySeconds`).
+- [**without**](#-without--remove-full-units-from-a-duration) – Strip full units to isolate what’s left (e.g. time since midnight).
+- [**Factories**](#️-factories--create-durations-from-any-unit) – Create durations from any unit or use built-in constants like `DurationFrom.year`.
+
+## Why Use `time_plus`?
+
+✅ **Zero dependencies** – Pure Dart. No setup, no third-party overhead.  
+✅ **Lightweight & efficient** – Minimal footprint with production-safe performance.  
+✅ **Powerful time utilities** – Add, compare, normalize, and decompose time with confidence.  
+✅ **Production-grade & tested** – Built for reliability with thorough test coverage.
+
+- **Ideal for:**
+  - 🗓 **Calendar logic** – Scheduling, planning, date math, and recurring events
+  - 🧮 **Data handling** – Grouping, filtering, and comparing `DateTime` objects with precision
+  - ⏱️ **UI & analytics** – Formatting durations, tracking activity, and displaying time intuitively
+
+`time_plus` closes the gaps in Dart’s native `DateTime` and `Duration` APIs — making your code easier to write, easier to read, and easier to trust.
 
 ---
 
@@ -43,10 +71,10 @@ All methods return a new `DateTime` instance. Month and year-based methods clamp
 
 ```dart
 final now = DateTime(2024, 2, 29);
-final nextYear = now.addYear;       // → 2025-02-28
+final nextYear = now.addYear;                 // → 2025-02-28
 final chained = now.addYear.addYear.addMonth; // → 2026-03-29
-final future = now.addDecades(2);   // → 2044-02-29
-final long = now.addCenturies(1);   // → 2124-02-29
+final future = now.addDecades(2);             // → 2044-02-29
+final long = now.addCenturies(1);             // → 2124-02-29
 ```
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
@@ -131,10 +159,41 @@ Easily check if a `DateTime` falls in a leap year, on a leap month (February in 
 
 ```dart
 final date = DateTime(2024, 2, 29);
-date.isLeapYear;   // → true
-date.isLeapMonth;  // → true
-date.isLeapDay;    // → true
+final dateNotDay = DateTime(2024, 2, 28);
+
+date.isLeapYear;      // → true
+date.isLeapMonth;     // → true
+date.isLeapDay;       // → true
+dateNotDay.isLeapDay; // → false
 ```
+
+_[⤴️ Back](#table-of-contents) -> Table of Contents_
+
+---
+
+### 📅 `yesterday` / `tomorrow` — Relative Day Helpers
+
+Convenient shortcuts to get `yesterday`, `tomorrow`, and their weekday numbers — always aligned to the start of the day.
+
+- `yesterday` — Start of the previous day
+- `tomorrow` — Start of the next day
+- `previousWeekday` — Weekday number of yesterday (`1 = Monday`, `7 = Sunday`)
+- `nextWeekday` — Weekday number of tomorrow
+
+Perfect for logic around schedules, shifts, events, or time-based UI highlights.
+
+#### 🧪 Example
+
+```dart
+final now = DateTime(2024, 4, 20, 13, 45); // Saturday
+
+now.yesterday;         // → 2024-04-19 00:00:00
+now.tomorrow;          // → 2024-04-21 00:00:00
+now.previousWeekday;   // → 5 (Friday)
+now.nextWeekday;       // → 7 (Sunday)
+```
+
+All results respect the original time zone (`local` or `UTC`).
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 
@@ -167,6 +226,13 @@ final chained = duration.addDay.addHour;      // → 1d 2h
 final future = duration.addDecades(1);        // → 3650d + 1h
 ```
 
+> ⚠️ **Note on accuracy:**  
+> The `addMonths`, `addYears`, `addDecades`, and `addCenturies` methods on `Duration` use **fixed approximations**  
+> (30 days per month, 365 days per year, etc.). These are suitable for rough estimates, timers, or analytics —  
+> but not for **calendar-accurate** date math.
+>
+> ✅ For precise handling of leap years, month lengths, and date rollovers, use the equivalent methods on `DateTime` instead.
+
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 
 ---
@@ -188,6 +254,13 @@ final d = Duration(days: 750);
 d.inYears;      // → 2
 d.inMonths;     // → 25
 ```
+
+> ⚠️ **Note on accuracy:**  
+> The `addMonths`, `addYears`, `addDecades`, and `addCenturies` methods on `Duration` use **fixed approximations**  
+> (30 days per month, 365 days per year, etc.). These are suitable for rough estimates, timers, or analytics —  
+> but not for **calendar-accurate** date math.
+>
+> ✅ For precise handling of leap years, month lengths, and date rollovers, use the equivalent methods on `DateTime` instead.
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 
@@ -272,6 +345,13 @@ final workout = DurationFrom.minutes(45);
 final breakTime = DurationFrom.week; // constant: 7 days
 final future = workout + DurationFrom.years(2);
 ```
+
+> ⚠️ **Note on accuracy:**  
+> The `addMonths`, `addYears`, `addDecades`, and `addCenturies` methods on `Duration` use **fixed approximations**  
+> (30 days per month, 365 days per year, etc.). These are suitable for rough estimates, timers, or analytics —  
+> but not for **calendar-accurate** date math.
+>
+> ✅ For precise handling of leap years, month lengths, and date rollovers, use the equivalent methods on `DateTime` instead.
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 

@@ -24,4 +24,5 @@ export 'date_time/add/month_and_year.dart';
 export 'date_time/leap_year.dart';
 export 'date_time/boundaries.dart';
 export 'date_time/is_same.dart';
+export 'date_time/weekday.dart';
 export 'core/consts.dart';
