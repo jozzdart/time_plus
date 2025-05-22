@@ -9,7 +9,7 @@ topics:
   - time
   - duration
   - datetime
-  - date_time
+  - date-time
 
 environment:
   sdk: ">=2.19.0 <4.0.0"
