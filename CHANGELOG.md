@@ -1,3 +1,101 @@
+## 0.0.10
+
+Added detailed README for enhanced user experience.
+
+### Added
+
+- README with:
+  - Emoji-based Table of Contents
+  - Categorized DateTime and Duration extensions
+  - Code examples for features
+  - Emoji icons for readability
+  - "Back to Top" links
+  - Sections on:
+    - DateTime: Time units, precision, boundaries, leap year
+    - Duration: Time units, factory methods, conversion, breakdown, removal
+  - Examples with use cases, edge cases, chainable operations, calendar-aware calculations
+  - Support: License, support link, branding
+
+## 0.0.9
+
+Added comprehensive DateTime boundary functionality with extensive test coverage.
+
+### Added
+
+- `DateTimeBoundariesExtensions` extension on `DateTime` class:
+  - New getters for precise temporal boundaries:
+    - `startOfMillisecond` / `endOfMillisecond`: Microsecond-level boundaries
+    - `startOfSecond` / `endOfSecond`: Millisecond-level boundaries
+    - `startOfMinute` / `endOfMinute`: Second-level boundaries
+    - `startOfHour` / `endOfHour`: Minute-level boundaries
+    - `startOfDay` / `endOfDay`: Hour-level boundaries
+    - `startOfWeek` / `endOfWeek`: Day-level boundaries (Monday-based)
+    - `startOfMonth` / `endOfMonth`: Day-level boundaries
+    - `startOfYear` / `endOfYear`: Month-level boundaries
+    - `startOfDecade` / `endOfDecade`: Year-level boundaries (10-year spans)
+    - `startOfCentury` / `endOfCentury`: Year-level boundaries (100-year spans)
+  - Smart handling of edge cases:
+    - Week transitions across month boundaries
+    - Month transitions with varying lengths
+    - Year transitions including leap years
+    - Decade and century transitions
+    - Timezone preservation
+  - Comprehensive test suite covering:
+    - All boundary types and transitions
+    - Leap year scenarios
+    - Month length variations
+    - Week boundary calculations
+    - Timezone consistency
+    - Microsecond precision
+    - Cross-century transitions
+
+## 0.0.8
+
+Added comprehensive temporal precision comparison functionality with extensive test coverage.
+
+### Added
+
+- `DateTimeIsSameExtensions` extension on `DateTime` class:
+  - New methods for precise temporal comparison:
+    - `isSameCentury`: Compare dates at century level
+    - `isSameDecade`: Compare dates at decade level
+    - `isSameYear`: Compare dates at year level
+    - `isSameMonth`: Compare dates at month level
+    - `isSameDay`: Compare dates at day level
+    - `isSameHour`: Compare dates at hour level
+    - `isSameMinute`: Compare dates at minute level
+    - `isSameSecond`: Compare dates at second level
+    - `isSameMillisecond`: Compare dates at millisecond level
+    - `isSameMicrosecond`: Compare dates at microsecond level
+  - Smart handling of edge cases:
+    - Century transitions (e.g., 1999-2000)
+    - Decade boundaries
+    - Year boundaries
+    - Month transitions
+    - Day boundaries
+    - Leap year dates
+  - Comprehensive test suite covering:
+    - All precision levels
+    - Boundary conditions
+    - Leap year scenarios
+    - Time zone consistency
+    - Edge case handling
+
+## 0.0.7
+
+Added comprehensive leap year functionality with extensive test coverage.
+
+- New getters for leap year detection:
+  - `isLeapYear`: Determines if a year is a leap year following the Gregorian calendar rules
+  - `isLeapMonth`: Identifies February in leap years
+  - `isLeapDay`: Identifies February 29th in leap years
+- Smart handling of edge cases:
+  - Years divisible by 4 but not by 100
+  - Years divisible by 100 but not by 400
+  - Years divisible by 400
+  - Invalid date combinations
+- Comprehensive test suite
+
 ## 0.0.6
 
 Comprehensive DateTime extensions for adding time units with proper handling of edge cases and calendar rules.
