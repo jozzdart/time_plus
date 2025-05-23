@@ -11,6 +11,6 @@
 ///
 /// Designed with simplicity and clarity in mind.
 /// No dependencies. Just useful time extensions.
-library;
+library time_plus;
 
 export 'src/time_plus.dart';
