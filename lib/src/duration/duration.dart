@@ -1,3 +1,4 @@
+export 'extensions/extensions.dart';
 export 'add.dart';
 export 'from.dart';
 export 'in.dart';
