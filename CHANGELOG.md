@@ -4,6 +4,7 @@
 - Added `DateTimeSubtractMonthsAndYearsExtension` with `subtractMonths`, `subtractYears`, `subtractMonth`, `subtractYear` methods
 - Added `DateTimeSubtractExtendingYearsExtension` with `subtractDecades`, `subtractCenturies`, `subtractDecade`, `subtractCentury` methods
 - Works better than "adding minus days" or "adding minus weeks"
+- Lowered Dart SDK constraint to `>=2.12.0 <4.0.0` for wider compatibility
 
 ## 1.1.6
 
