@@ -1,3 +1,4 @@
+import '../utc_flag.dart';
 import '../../consts.dart';
 
 /// Extension on [DateTime] to add months and years, with proper handling of month overflow and leap years.
@@ -64,6 +65,11 @@ extension DateTimeAddMonthsAndYearsExtension on DateTime {
   DateTime _createDateTimeWithClampedDay(int newYear, int newMonth) {
     final lastDayOfMonth = DateTime(newYear, newMonth + 1, 0).day;
     final newDay = day.clamp(1, lastDayOfMonth);
-    return DateTime(newYear, newMonth, newDay);
+    // preserve the original time-of-day and UTC/local flag:
+    return copyWithSameUtcFlag(
+      year: newYear,
+      month: newMonth,
+      day: newDay,
+    );
   }
 }

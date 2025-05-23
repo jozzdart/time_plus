@@ -1,3 +1,5 @@
+import 'utc_flag.dart';
+
 extension DateTimeNextExtensions on DateTime {
   /// Returns the next occurrence of the given [weekday] and optional time.
   /// - Skips the current instance even if it matches.
@@ -13,7 +15,7 @@ extension DateTimeNextExtensions on DateTime {
     final daysToAdd = (weekday - this.weekday + 7) % 7;
     var nextDate = add(Duration(days: daysToAdd == 0 ? 7 : daysToAdd));
 
-    final result = _withSameZone(
+    final result = withSameUtcFlag(
       nextDate.year,
       nextDate.month,
       nextDate.day,
@@ -36,7 +38,7 @@ extension DateTimeNextExtensions on DateTime {
     int millisecond = 0,
     int microsecond = 0,
   }) {
-    final today = _withSameZone(
+    final today = withSameUtcFlag(
       year,
       month,
       day,
@@ -48,25 +50,5 @@ extension DateTimeNextExtensions on DateTime {
     );
 
     return today.isAfter(this) ? today : today.add(const Duration(days: 1));
-  }
-
-  /// Creates a [DateTime] object with the same time zone as the original.
-  ///
-  /// The [year], [month], [day], [hour], [minute], [second], [millisecond], and [microsecond]
-  /// parameters are used to construct the new [DateTime] object. If the original [DateTime] is in UTC,
-  /// the new [DateTime] will also be in UTC.
-  DateTime _withSameZone(int year,
-      [int month = 1,
-      int day = 1,
-      int hour = 0,
-      int minute = 0,
-      int second = 0,
-      int millisecond = 0,
-      int microsecond = 0]) {
-    return isUtc
-        ? DateTime.utc(
-            year, month, day, hour, minute, second, millisecond, microsecond)
-        : DateTime(
-            year, month, day, hour, minute, second, millisecond, microsecond);
   }
 }
