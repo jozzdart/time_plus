@@ -4,7 +4,7 @@ import 'leap_year.dart';
 extension DateTimeIn on DateTime {
   /// Returns the number of days in the month of this [DateTime] instance.
   ///
-  /// Handles leap years for February. Safe for all values where [month] is 1–12.
+  /// Handles leap years for February.
   ///
   /// Example:
   /// ```dart
@@ -12,8 +12,6 @@ extension DateTimeIn on DateTime {
   /// DateTime(2023, 2, 10).daysInMonth; // 28
   /// ```
   int get daysInMonth {
-    assert(month >= 1 && month <= 12, 'Month must be between 1 and 12');
-
     // Precomputed for clarity and immutability
     const commonYearDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const leapYearDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
