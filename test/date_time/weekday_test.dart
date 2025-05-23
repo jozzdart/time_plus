@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:time_plus/date_time/weekday.dart';
+import 'package:time_plus/time_plus.dart';
 
 void main() {
   group('DateTime weekday extensions', () {
@@ -104,10 +104,6 @@ void main() {
         expect(monday.previousWeekday, equals(7)); // Sunday
 
         final saturday = DateTime.utc(2024, 3, 23); // Saturday
-
-        print(saturday); // Should be 2024-03-23
-        print(saturday.yesterday); // Should be 2024-03-22
-        print(saturday.yesterday.weekday); // Should be 5
 
         expect(saturday.previousWeekday, equals(5)); // Friday
       });

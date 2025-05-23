@@ -1,3 +1,10 @@
+## 1.2.0
+
+- Added comprehensive `DateTime` subtraction extensions with calendar-aware date arithmetic
+- Added `DateTimeSubtractMonthsAndYearsExtension` with `subtractMonths`, `subtractYears`, `subtractMonth`, `subtractYear` methods
+- Added `DateTimeSubtractExtendingYearsExtension` with `subtractDecades`, `subtractCenturies`, `subtractDecade`, `subtractCentury` methods
+- Works better than "adding minus days" or "adding minus weeks"
+
 ## 1.1.6
 
 - Added `DateTimeNextExtensions` extension on `DateTime` class:

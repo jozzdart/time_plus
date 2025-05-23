@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:time_plus/date_time/leap_year.dart';
+import 'package:time_plus/time_plus.dart';
 
 void main() {
   group('DateTimeLeapYearExtensions', () {

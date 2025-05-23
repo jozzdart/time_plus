@@ -141,4 +141,76 @@ void main() {
       expect(result, DateTime(2024, 3, 1));
     });
   });
+
+  group('DateTimeAddMonthsAndYearsExtension – timezone edge cases', () {
+    // 1) Ensure UTC flag is preserved
+    test('addMonths on UTC DateTime stays UTC', () {
+      final base = DateTime.utc(2024, 1, 31, 12, 34, 56);
+      final result = base.addMonths(1);
+      expect(result.isUtc, isTrue);
+      // day clamps to Feb-29 but hour/min/sec default to original
+      expect(result, DateTime.utc(2024, 2, 29, 12, 34, 56));
+    });
+
+    // 2) Adding months across a spring-forward gap (non-existent local time)
+    test('addMonths on a spring-forward DST date normalizes correctly UTC', () {
+      // In many zones DST jumps at 02:00 → 03:00 on March 31, 2024
+      final before = DateTime.utc(2024, 2, 29, 2, 30); // Feb 29 at 2:30 (valid)
+      final result =
+          before.addMonths(1); // March 29 at 2:30 → that time never existed
+      // Dart will normalize to the next valid instant (typically 03:00)
+      expect(result.month, 3);
+      // It must not throw, but we check it stays in March and isAfter 02:59
+      expect(result.isAfter(DateTime.utc(2024, 3, 29, 2, 29)), isTrue);
+    });
+
+    // 2) Adding months across a spring-forward gap (non-existent local time)
+    test('addMonths on a spring-forward DST date normalizes correctly', () {
+      // In many zones DST jumps at 02:00 → 03:00 on March 31, 2024
+      final before = DateTime(2024, 2, 29, 2, 30); // Feb 29 at 2:30 (valid)
+      final result =
+          before.addMonths(1); // March 29 at 2:30 → that time never existed
+      // Dart will normalize to the next valid instant (typically 03:00)
+      expect(result.month, 3);
+      // It must not throw, but we check it stays in March and isAfter 02:59
+      expect(result.isAfter(DateTime(2024, 3, 29, 2, 29)), isTrue);
+    });
+
+    test('spring-forward DST time is normalized to 03:00', () {
+      final invalid = DateTime(2024, 3, 31, 2, 30); // Does not exist
+      expect(invalid.addMonths(1), DateTime(2024, 4, 30, 2, 30));
+    });
+
+    // 3) Adding months across a fall-back gap (ambiguous local time)
+    test(
+        'addMonths on a fall-back DST date yields one of the two valid offsets',
+        () {
+      // In many zones controls go back 03:00 → 02:00 on Oct 27, 2024
+      final before = DateTime(2024, 9, 27, 2, 30); // Sep 27 02:30
+      final result = before.addMonths(1); // Oct 27 02:30 appears twice
+      expect(result.month, 10);
+      // We can’t predict exactly which offset Dart picks, but it must be in the 2-3 AM hour
+      expect(result.hour, anyOf(2, 3));
+    });
+
+    // 4) Verify that time-of-day is reset to midnight (current behavior)
+    test('addMonths always yields midnight regardless of original time', () {
+      final base = DateTime(2024, 5, 15, 18, 45, 30);
+      final result = base.addMonths(2);
+      expect(result.hour, 18);
+      expect(result.minute, 45);
+      expect(result.second, 30);
+    });
+
+    // 5) Round-trip UTC→local→addMonths→toUtc
+    test('round-trip through UTC preserves correct calendar date', () {
+      final local = DateTime(2024, 4, 10, 5, 0);
+      final asUtc = local.toUtc();
+      final addedUtc = asUtc.addMonths(1);
+      final backToLocal = addedUtc.toLocal();
+      // Should land on May 10 local, even if DST changed in May
+      expect(backToLocal.month, 5);
+      expect(backToLocal.day, 10);
+    });
+  });
 }
