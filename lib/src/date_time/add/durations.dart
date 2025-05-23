@@ -49,10 +49,14 @@ extension DateTimeAddDurationExtension on DateTime {
 
   /// Returns a new [DateTime] with the specified number of [days] added.
   ///
+  /// This method preserves the exact time of day and is not equivalent to adding
+  /// 24 hours. It will keep the same time but move to the specified number of
+  /// days in the future, which is important for daylight saving time handling.
+  ///
   /// Example:
   /// ```dart
   /// DateTime now = DateTime.now();
-  /// DateTime future = now.addDays(7);
+  /// DateTime future = now.addDays(7); // Same time, 7 days later
   /// ```
   DateTime addDays(int days) {
     return copyWithSameUtcFlag(day: day + days);
@@ -60,10 +64,14 @@ extension DateTimeAddDurationExtension on DateTime {
 
   /// Returns a new [DateTime] with the specified number of [weeks] added.
   ///
+  /// This method preserves the exact time of day and is not equivalent to adding
+  /// 168 hours (7 × 24). It will keep the same time but move to the specified
+  /// number of weeks in the future, which is important for daylight saving time handling.
+  ///
   /// Example:
   /// ```dart
   /// DateTime now = DateTime.now();
-  /// DateTime future = now.addWeeks(3);
+  /// DateTime future = now.addWeeks(3); // Same time, 3 weeks later
   /// ```
   DateTime addWeeks(int weeks) {
     return addDays(weeks * TimePlusConsts.daysInWeek);

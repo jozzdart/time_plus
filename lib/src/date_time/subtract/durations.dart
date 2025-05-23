@@ -49,10 +49,14 @@ extension DateTimeSubtractDurationsExtensions on DateTime {
 
   /// Returns a new [DateTime] with the specified number of [days] subtracted.
   ///
+  /// This method preserves the exact time of day and is not equivalent to subtracting
+  /// 24 hours. It will keep the same time but move to the specified number of
+  /// days in the past, which is important for daylight saving time handling.
+  ///
   /// Example:
   /// ```dart
   /// DateTime now = DateTime.now();
-  /// DateTime past = now.subtractDays(7);
+  /// DateTime past = now.subtractDays(7); // Same time, 7 days earlier
   /// ```
   DateTime subtractDays(int days) {
     return copyWithSameUtcFlag(day: day - days);
@@ -60,10 +64,14 @@ extension DateTimeSubtractDurationsExtensions on DateTime {
 
   /// Returns a new [DateTime] with the specified number of [weeks] subtracted.
   ///
+  /// This method preserves the exact time of day and is not equivalent to subtracting
+  /// 168 hours (7 × 24). It will keep the same time but move to the specified
+  /// number of weeks in the past, which is important for daylight saving time handling.
+  ///
   /// Example:
   /// ```dart
   /// DateTime now = DateTime.now();
-  /// DateTime past = now.subtractWeeks(3);
+  /// DateTime past = now.subtractWeeks(3); // Same time, 3 weeks earlier
   /// ```
   DateTime subtractWeeks(int weeks) {
     return subtractDays(weeks * TimePlusConsts.daysInWeek);
