@@ -21,6 +21,7 @@ Stop wrestling with `DateTime` and `Duration`. `time_plus` gives you the tools y
 #### 📅 `DateTime`
 
 - [**add**](#-add--add-time-to-a-datetime) – Add time units to `DateTime` from milliseconds to centuries with `.addX()` or `.addX` getters.
+- [**subtract**](#-subtract--subtract-time-from-a-datetime) – Subtract time units from `DateTime` using intuitive, calendar-aware methods.
 - [**isSame**](#-issame--compare-temporal-precision) – Compare two dates by year, month, day, hour, to microseconds using `isSameX()`.
 - [**startOf / endOf**](#-startof--endof--datetime-boundaries) – Get start or end of time units: minute, hour, day, week, month, year.
 - [**next**](#️-next--find-the-next-matching-datetime) – Find the next matching `DateTime` by weekday or time of day.
@@ -32,7 +33,7 @@ Stop wrestling with `DateTime` and `Duration`. `time_plus` gives you the tools y
 - [**add**](#-add--add-time-units-to-a-duration) – Chain any time unit, from microseconds to centuries, with `.addX()` or `.addX` getters.
 - [**in**](#-in--convert-duration-to-whole-units) – Convert durations into whole units like `inWeeks`, `inYears`, or `inCenturies`.
 - [**only**](#-only--break-down-duration-by-remaining-units) – Extract the remainder after subtracting larger units (e.g. `onlyMinutes`, `onlySeconds`).
-- [**without**](#-without--remove-full-units-from-a-duration) – Strip full units to isolate what’s left (e.g. time since midnight).
+- [**without**](#-without--remove-full-units-from-a-duration) – Strip full units to isolate what's left (e.g. time since midnight).
 - [**Factories**](#️-factories--create-durations-from-any-unit) – Create durations from any unit or use built-in constants like `DurationFrom.year`.
 
 ## Why Use `time_plus`?
@@ -47,7 +48,7 @@ Stop wrestling with `DateTime` and `Duration`. `time_plus` gives you the tools y
   - 🧮 **Data handling** – Grouping, filtering, and comparing `DateTime` objects with precision
   - ⏱️ **UI & analytics** – Formatting durations, tracking activity, and displaying time intuitively
 
-`time_plus` closes the gaps in Dart’s native `DateTime` and `Duration` APIs — making your code easier to write, easier to read, and easier to trust.
+`time_plus` closes the gaps in Dart's native `DateTime` and `Duration` APIs — making your code easier to write, easier to read, and easier to trust.
 
 ---
 
@@ -59,7 +60,7 @@ Extend `DateTime` just like you wish it worked. These extensions let you safely 
 - `addSeconds(int)` / `addSecond`
 - `addMinutes(int)` / `addMinute`
 - `addHours(int)` / `addHour`
-- `addDays(int)` / `addDay`
+- `addDays(int)` / `addDay` — Preserves exact time of day (all following methods do)
 - `addWeeks(int)` / `addWeek`
 - `addMonths(int)` / `addMonth`
 - `addYears(int)` / `addYear`
@@ -77,6 +78,41 @@ final chained = now.addYear.addYear.addMonth; // → 2026-03-29
 final future = now.addDecades(2);             // → 2044-02-29
 final long = now.addCenturies(1);             // → 2124-02-29
 ```
+
+> **Important:** The `addDays` and `addWeeks` and the bigger time units methods preserve the exact time of day and are calendar-aware, making them safe for daylight saving time transitions. They are not equivalent to adding hours.
+
+_[⤴️ Back](#table-of-contents) -> Table of Contents_
+
+---
+
+### ➖ `subtract` — Subtract Time from a `DateTime`
+
+Safely subtract time from any `DateTime` using intuitive, calendar-aware methods. These extensions go beyond raw durations to handle months, years, decades, and centuries — correctly accounting for leap years, daylight saving, and invalid dates like Feb 30.
+
+- `subtractMilliseconds(int)` / `subtractMillisecond`
+- `subtractSeconds(int)` / `subtractSecond`
+- `subtractMinutes(int)` / `subtractMinute`
+- `subtractHours(int)` / `subtractHour`
+- `subtractDays(int)` / `subtractDay` — Preserves exact time of day (all following methods do)
+- `subtractWeeks(int)` / `subtractWeek`
+- `subtractMonths(int)` / `subtractMonth`
+- `subtractYears(int)` / `subtractYear`
+- `subtractDecades(int)` / `subtractDecade` (10-year spans)
+- `subtractCenturies(int)` / `subtractCentury` (100-year spans)
+
+All methods return a new `DateTime` instance. Month and year-based methods clamp invalid dates (e.g. March 31 → February 28/29), ensuring always-valid results.
+
+#### 🧪 Example
+
+```dart
+final now = DateTime(2024, 2, 29);
+final lastYear = now.subtractYear;                 // → 2023-02-28
+final chained = now.subtractYear.subtractMonth;    // → 2022-01-28
+final past = now.subtractDecades(2);               // → 2004-02-29
+final wayBack = now.subtractCenturies(1);          // → 1924-02-29
+```
+
+> **Important:** The `subtractDays` and `subtractWeeks` and the bigger time units methods preserve the exact time of day and are calendar-aware, making them safe for daylight saving time transitions. They are not equivalent to subtracting hours.
 
 _[⤴️ Back](#table-of-contents) -> Table of Contents_
 
@@ -177,8 +213,8 @@ _[⤴️ Back](#table-of-contents) -> Table of Contents_
 Easily check if a `DateTime` falls in a leap year, on a leap month (February in a leap year), or on the rarest of all — leap day itself (Feb 29).
 
 - `isLeapYear` — `true` if the year has 366 days
-- `isLeapMonth` — `true` if it’s February in a leap year
-- `isLeapDay` — `true` if it’s exactly February 29
+- `isLeapMonth` — `true` if it's February in a leap year
+- `isLeapDay` — `true` if it's exactly February 29
 
 #### 🧪 Example
 
