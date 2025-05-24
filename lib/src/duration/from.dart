@@ -35,47 +35,59 @@ class DurationFrom {
   /// Creates a [Duration] representing the specified number of weeks.
   /// A week is considered to have 7 days.
   static Duration weeks(int weeks) {
-    return Duration(days: weeks * TimePlusConsts.daysInWeek);
+    return Duration(days: weeks * DateTime.daysPerWeek);
   }
 
   /// Creates a [Duration] representing the specified number of months.
-  /// A month is considered to have 30 days.
+  /// Uses the average Gregorian calendar month length of 30.436875 days.
   static Duration months(int months) {
-    return Duration(days: months * TimePlusConsts.daysInMonth);
+    return Duration(
+        days: (months * TimePlusConsts.averageDaysPerMonth).round());
   }
 
   /// Creates a [Duration] representing the specified number of years.
-  /// A year is considered to have 365 days.
+  /// Uses the average Gregorian calendar year length of 365.2425 days.
   static Duration years(int years) {
-    return Duration(days: years * TimePlusConsts.daysInYear);
+    return Duration(days: (years * TimePlusConsts.averageDaysPerYear).round());
   }
 
   /// Creates a [Duration] representing the specified number of decades.
-  /// A decade is considered to have 3650 days.
+  /// Uses the average Gregorian calendar decade length of 3,652.425 days.
   static Duration decades(int decades) {
-    return Duration(days: decades * TimePlusConsts.daysInDecade);
+    return Duration(
+        days: (decades * TimePlusConsts.averageDaysPerDecade).round());
   }
 
   /// Creates a [Duration] representing the specified number of centuries.
-  /// A century is considered to have 36500 days.
+  /// Uses the average Gregorian calendar century length of 36,524.25 days.
   static Duration centuries(int centuries) {
-    return Duration(days: centuries * TimePlusConsts.daysInCentury);
+    return Duration(
+        days: (centuries * TimePlusConsts.averageDaysPerCentury).round());
   }
 
   /// A constant [Duration] representing one century.
-  static const Duration century = Duration(days: TimePlusConsts.daysInCentury);
+  /// Uses an approximate value of 36,524 days for quick calculations.
+  static const Duration century =
+      Duration(days: TimePlusConsts.roundedDaysInCentury);
 
   /// A constant [Duration] representing one decade.
-  static const Duration decade = Duration(days: TimePlusConsts.daysInDecade);
+  /// Uses an approximate value of 3,652 days for quick calculations.
+  static const Duration decade =
+      Duration(days: TimePlusConsts.roundedDaysInDecade);
 
   /// A constant [Duration] representing one year.
-  static const Duration year = Duration(days: TimePlusConsts.daysInYear);
+  /// Uses an approximate value of 365 days for quick calculations.
+  static const Duration year =
+      Duration(days: TimePlusConsts.roundedDaysPerYear);
 
   /// A constant [Duration] representing one month.
-  static const Duration month = Duration(days: TimePlusConsts.daysInMonth);
+  /// Uses an approximate value of 30 days for quick calculations.
+  static const Duration month =
+      Duration(days: TimePlusConsts.roundedDaysPerMonth);
 
   /// A constant [Duration] representing one week.
-  static const Duration week = Duration(days: TimePlusConsts.daysInWeek);
+  /// Uses exactly 7 days.
+  static const Duration week = Duration(days: DateTime.daysPerWeek);
 
   /// A constant [Duration] representing one day.
   static const Duration day = Duration(days: 1);

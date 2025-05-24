@@ -1,4 +1,3 @@
-import '../../consts.dart';
 import '../utc_flag.dart';
 
 /// Extension on [DateTime] to add various durations.
@@ -74,7 +73,7 @@ extension DateTimeAddDurationExtension on DateTime {
   /// DateTime future = now.addWeeks(3); // Same time, 3 weeks later
   /// ```
   DateTime addWeeks(int weeks) {
-    return addDays(weeks * TimePlusConsts.daysInWeek);
+    return addDays(weeks * DateTime.daysPerWeek);
   }
 
   /// Returns a new [DateTime] with one millisecond added.
