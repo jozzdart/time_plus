@@ -3,20 +3,16 @@ import 'package:time_plus/time_plus.dart';
 
 void main() {
   group('TimePlusConsts', () {
-    test('daysInWeek should be 7', () {
-      expect(TimePlusConsts.daysInWeek, equals(7));
-    });
-
     test('monthsInYear should be 12', () {
       expect(TimePlusConsts.monthsInYear, equals(12));
     });
 
-    test('daysInMonth should be 30', () {
-      expect(TimePlusConsts.daysInMonth, equals(30));
+    test('daysInMonth should be the precise Gregorian average', () {
+      expect(TimePlusConsts.daysInMonth, equals(30.436875));
     });
 
-    test('daysInYear should be 365', () {
-      expect(TimePlusConsts.daysInYear, equals(365));
+    test('daysInYear should be the precise Gregorian average', () {
+      expect(TimePlusConsts.daysInYear, equals(365.2425));
     });
 
     test('yearsInDecade should be 10', () {
@@ -43,6 +39,23 @@ void main() {
         TimePlusConsts.daysInCentury,
         equals(TimePlusConsts.daysInDecade * TimePlusConsts.decadesInCentury),
       );
+    });
+
+    // Approximate constants for quick calculations
+    test('approxDaysInMonth should be 30', () {
+      expect(TimePlusConsts.approxDaysInMonth, equals(30));
+    });
+
+    test('approxDaysInYear should be 365', () {
+      expect(TimePlusConsts.approxDaysInYear, equals(365));
+    });
+
+    test('approxDaysInDecade should be 3652', () {
+      expect(TimePlusConsts.approxDaysInDecade, equals(3652));
+    });
+
+    test('approxDaysInCentury should be 36524', () {
+      expect(TimePlusConsts.approxDaysInCentury, equals(36524));
     });
   });
 }
