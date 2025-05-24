@@ -28,28 +28,27 @@ void main() {
     });
 
     test('weeks', () {
-      expect(
-          DurationFrom.weeks(2), Duration(days: 2 * TimePlusConsts.daysInWeek));
+      expect(DurationFrom.weeks(2), Duration(days: 2 * DateTime.daysPerWeek));
     });
 
     test('months', () {
       expect(DurationFrom.months(3),
-          Duration(days: 3 * TimePlusConsts.daysInMonth));
+          Duration(days: (3 * TimePlusConsts.averageDaysPerMonth).round()));
     });
 
     test('years', () {
-      expect(
-          DurationFrom.years(4), Duration(days: 4 * TimePlusConsts.daysInYear));
+      expect(DurationFrom.years(4),
+          Duration(days: (4 * TimePlusConsts.averageDaysPerYear).round()));
     });
 
     test('decades', () {
-      expect(
-          DurationFrom.decades(1), Duration(days: TimePlusConsts.daysInDecade));
+      expect(DurationFrom.decades(1),
+          Duration(days: (1 * TimePlusConsts.averageDaysPerDecade).round()));
     });
 
     test('centuries', () {
       expect(DurationFrom.centuries(2),
-          Duration(days: 2 * TimePlusConsts.daysInCentury));
+          Duration(days: (2 * TimePlusConsts.averageDaysPerCentury).round()));
     });
   });
 
@@ -79,31 +78,34 @@ void main() {
     });
 
     test('week', () {
-      expect(DurationFrom.week, Duration(days: TimePlusConsts.daysInWeek));
+      expect(DurationFrom.week, Duration(days: DateTime.daysPerWeek));
     });
 
     test('month', () {
-      expect(DurationFrom.month, Duration(days: TimePlusConsts.daysInMonth));
+      expect(DurationFrom.month,
+          Duration(days: TimePlusConsts.roundedDaysPerMonth));
     });
 
     test('year', () {
-      expect(DurationFrom.year, Duration(days: TimePlusConsts.daysInYear));
+      expect(
+          DurationFrom.year, Duration(days: TimePlusConsts.roundedDaysPerYear));
     });
 
     test('decade', () {
-      expect(DurationFrom.decade, Duration(days: TimePlusConsts.daysInDecade));
+      expect(DurationFrom.decade,
+          Duration(days: TimePlusConsts.roundedDaysInDecade));
     });
 
     test('century', () {
-      expect(
-          DurationFrom.century, Duration(days: TimePlusConsts.daysInCentury));
+      expect(DurationFrom.century,
+          Duration(days: TimePlusConsts.roundedDaysInCentury));
     });
   });
 
   group('DurationFrom edge case and consistency tests', () {
     test('negative values', () {
       expect(DurationFrom.years(-2),
-          Duration(days: -2 * TimePlusConsts.daysInYear));
+          Duration(days: (-2 * TimePlusConsts.averageDaysPerYear).round()));
       expect(DurationFrom.centuries(-1), -DurationFrom.century);
     });
 
@@ -120,7 +122,7 @@ void main() {
           DurationFrom.second;
 
       final expected = Duration(
-        days: TimePlusConsts.daysInWeek + 1,
+        days: DateTime.daysPerWeek + 1,
         hours: 1,
         minutes: 1,
         seconds: 1,
@@ -131,14 +133,15 @@ void main() {
 
     test('manual consistency check with days', () {
       final threeMonths = DurationFrom.months(3);
-      expect(threeMonths.inDays, 3 * TimePlusConsts.daysInMonth);
+      expect(
+          threeMonths.inDays, (3 * TimePlusConsts.averageDaysPerMonth).round());
     });
 
     test('large values', () {
       expect(DurationFrom.centuries(1000).inDays,
-          1000 * TimePlusConsts.daysInCentury);
-      expect(
-          DurationFrom.years(10000).inDays, 10000 * TimePlusConsts.daysInYear);
+          1000 * TimePlusConsts.averageDaysPerCentury);
+      expect(DurationFrom.years(10000).inDays,
+          10000 * TimePlusConsts.averageDaysPerYear);
     });
 
     test('very small values', () {
@@ -160,11 +163,11 @@ void main() {
           DurationFrom.millisecond;
 
       final expected = Duration(
-        days: TimePlusConsts.daysInCentury +
-            TimePlusConsts.daysInDecade +
-            TimePlusConsts.daysInYear +
-            TimePlusConsts.daysInMonth +
-            TimePlusConsts.daysInWeek +
+        days: TimePlusConsts.roundedDaysInCentury +
+            TimePlusConsts.roundedDaysInDecade +
+            TimePlusConsts.roundedDaysPerYear +
+            TimePlusConsts.roundedDaysPerMonth +
+            DateTime.daysPerWeek +
             1,
         hours: 1,
         minutes: 1,
@@ -183,11 +186,11 @@ void main() {
           DurationFrom.week;
 
       final expected = Duration(
-        days: TimePlusConsts.daysInCentury +
-            TimePlusConsts.daysInDecade -
-            TimePlusConsts.daysInYear +
-            TimePlusConsts.daysInMonth -
-            TimePlusConsts.daysInWeek,
+        days: TimePlusConsts.roundedDaysInCentury +
+            TimePlusConsts.roundedDaysInDecade -
+            TimePlusConsts.roundedDaysPerYear +
+            TimePlusConsts.roundedDaysPerMonth -
+            DateTime.daysPerWeek,
       );
 
       expect(mixed, expected);

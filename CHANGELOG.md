@@ -1,3 +1,30 @@
+## 1.3.1
+
+- Updated README
+
+## 1.3.0
+
+- Added full suite of `Duration` → fractional unit getters:
+  - `asMilliseconds`, `asSeconds`, `asMinutes`, `asHours`, `asDays`, `asWeeks`, `asMonths`, `asYears`, `asDecades`, `asCenturies`
+- Added new `DateTime` calendar-aware getters:
+  - `daysInMonth`, `daysInYear`
+- Added smart `Duration` creation from `int` and `double`:
+  - `1.days`, `2.hours`, `3.centuries` and `1.5.hours`, `0.25.years`, `2.75.months`, etc. Uses decomposition for precise accuracy.
+- Updated month/year/decade/century logic for `Duration`:
+  - Now uses **long-term Gregorian calendar averages**:
+    - Month ≈ 30.436875 days
+    - Year ≈ 365.2425 days
+    - Decade ≈ 3,652.425 days
+    - Century ≈ 36,524.25 days
+  - Improves consistency, accuracy, and alignment with real-world time math
+  - Replaces prior approximations (`30`, `365`, `3650`, etc.)
+- Added `time vs time_plus` comparison section to README:
+  - Highlights architectural improvements, precision gains, and test coverage
+  - Documents why `time_plus` is a modern, high-performance alternative to the `time` package
+
+> All new additions are documented in the README and covered by tests.  
+> For exact calendar logic, continue using `DateTime` methods.
+
 ## 1.2.0
 
 - Added comprehensive `DateTime` subtraction extensions with calendar-aware date arithmetic

@@ -1,4 +1,3 @@
-import '../../consts.dart';
 import '../utc_flag.dart';
 
 /// Extension on [DateTime] to subtract various durations.
@@ -74,7 +73,7 @@ extension DateTimeSubtractDurationsExtensions on DateTime {
   /// DateTime past = now.subtractWeeks(3); // Same time, 3 weeks earlier
   /// ```
   DateTime subtractWeeks(int weeks) {
-    return subtractDays(weeks * TimePlusConsts.daysInWeek);
+    return subtractDays(weeks * DateTime.daysPerWeek);
   }
 
   /// Returns a new [DateTime] with one millisecond subtracted.
