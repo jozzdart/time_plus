@@ -34,7 +34,7 @@ class TimePlusConsts {
   /// This constant is useful for approximations, simulations, and scenarios where
   /// precision across long time spans is required, but it does **not** represent the
   /// exact number of days in any individual month (e.g., February has 28 or 29 days).
-  static const double daysInMonth = 30.436875;
+  static const double averageDaysPerMonth = 30.436875;
 
   /// The average number of days in a Gregorian calendar year over a long time span.
   ///
@@ -55,20 +55,21 @@ class TimePlusConsts {
   /// This constant is widely used in astronomy, calendar systems, and timekeeping
   /// to approximate the solar year. It does **not** represent any single year’s actual
   /// day count, but rather a long-term average.
-  static const double daysInYear = 365.2425;
+  static const double averageDaysPerYear = 365.2425;
 
   /// The average number of days in a Gregorian calendar decade.
   ///
   /// This is computed as:
   /// ```
-  /// daysInYear × yearsInDecade = 365.2425 × 10 = 3,652.425
+  /// averageDaysPerYear × yearsInDecade = 365.2425 × 10 = 3,652.425
   /// ```
   /// It represents the approximate number of days in 10 years, using the long-term
   /// average of 365.2425 days per year based on the Gregorian calendar system.
   ///
   /// Useful for calculations involving long-term durations, forecasting, and date
   /// simulations over multi-year spans.
-  static const double daysInDecade = daysInYear * TimePlusConsts.yearsInDecade;
+  static const double averageDaysPerDecade =
+      averageDaysPerYear * TimePlusConsts.yearsInDecade;
 
   /// The average number of days in a Gregorian calendar century.
   ///
@@ -83,20 +84,20 @@ class TimePlusConsts {
   ///
   /// Recommended for simulations, estimations, and conversions between time units over
   /// extended durations.
-  static const double daysInCentury =
-      daysInDecade * TimePlusConsts.decadesInCentury;
+  static const double averageDaysPerCentury =
+      averageDaysPerDecade * TimePlusConsts.decadesInCentury;
 
   /// Approximate number of days in a single month (used for quick, non-precise calculations).
-  static const int approxDaysInMonth = 30;
+  static const int roundedDaysPerMonth = 30;
 
   /// Approximate number of days in a single year (used for quick, non-precise calculations).
-  static const int approxDaysInYear = 365;
+  static const int roundedDaysPerYear = 365;
 
   /// Approximate number of days in a single decade (used for quick, non-precise calculations).
-  static const int approxDaysInDecade = 3652;
+  static const int roundedDaysInDecade = 3652;
 
   /// Approximate number of days in a single century (used for quick, non-precise calculations).
-  static const int approxDaysInCentury = 36524;
+  static const int roundedDaysInCentury = 36524;
 
   /// The number of microseconds in a week.
   static const int microsecondsPerWeek =
