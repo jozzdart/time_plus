@@ -354,7 +354,7 @@ _[⤴️ Back](#table-of-contents) -> Table of Contents_
 
 ---
 
-## ➗ `as` — Convert Duration to Fractional Units
+### ➗ `as` — Convert Duration to Fractional Units
 
 Convert a `Duration` to floating-point values — including fractions — in any time unit, from milliseconds to centuries. Unlike `inX`, which gives only whole units, `asX` provides precise decimal results.
 
@@ -374,7 +374,7 @@ duration.asYears;    // → ~0.0041
 ```
 
 > ⚠️ **Note on precision:**
-> These unit conversions are based on **mean durations** over 400 years in the Gregorian calendar.
+> The months/years/decades/centuries conversions are based on **mean durations** over 400 years in the Gregorian calendar.
 > While significantly more accurate than fixed approximations (like "30 days per month"), they still **do not match exact calendar units**.
 >
 > ✅ Use `DateTime` methods for exact date math, including leap years and end-of-month boundaries.
