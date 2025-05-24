@@ -34,7 +34,8 @@ void main() {
     });
 
     test('addMonths', () {
-      expect(base.addMonths(2), Duration(days: 60));
+      // on average, 30.436875 days per month
+      expect(base.addMonths(2), Duration(days: 61));
     });
 
     test('addYears', () {
@@ -42,11 +43,13 @@ void main() {
     });
 
     test('addDecades', () {
-      expect(base.addDecades(1), Duration(days: 3650));
+      expect(base.addDecades(1),
+          Duration(days: TimePlusConsts.averageDaysPerDecade.round()));
     });
 
     test('addCenturies', () {
-      expect(base.addCenturies(1), Duration(days: 36500));
+      expect(base.addCenturies(1),
+          Duration(days: TimePlusConsts.averageDaysPerCentury.round()));
     });
 
     test('addMicrosecond getter', () {
@@ -86,11 +89,13 @@ void main() {
     });
 
     test('addDecade getter', () {
-      expect(base.addDecade, Duration(days: 3650));
+      expect(
+          base.addDecade, Duration(days: TimePlusConsts.roundedDaysInDecade));
     });
 
     test('addCentury getter', () {
-      expect(base.addCentury, Duration(days: 36500));
+      expect(
+          base.addCentury, Duration(days: TimePlusConsts.roundedDaysInCentury));
     });
 
     test('handles negative input', () {
@@ -111,11 +116,15 @@ void main() {
     });
 
     test('very large values do not overflow', () {
-      expect(base.addCenturies(100), Duration(days: 36500 * 100));
+      expect(base.addCenturies(100),
+          Duration(days: (TimePlusConsts.averageDaysPerCentury * 100).round()));
     });
 
     test('very negative values do not overflow', () {
-      expect(base.addCenturies(-100), Duration(days: -36500 * 100));
+      expect(
+          base.addCenturies(-100),
+          Duration(
+              days: -(TimePlusConsts.averageDaysPerCentury * 100).round()));
     });
 
     test('add and subtract cancel out', () {
@@ -130,7 +139,8 @@ void main() {
     });
 
     test('addMonths produces expected day count', () {
-      final expected = Duration(days: 3 * TimePlusConsts.daysInMonth);
+      final expected =
+          Duration(days: (3 * TimePlusConsts.averageDaysPerMonth).round());
       expect(base.addMonths(3), expected);
     });
 
@@ -140,7 +150,8 @@ void main() {
     });
 
     test('addYears is approximate and not leap-year safe', () {
-      expect(base.addYears(4), Duration(days: 1460)); // 365 * 4
+      expect(base.addYears(4),
+          Duration(days: (TimePlusConsts.averageDaysPerYear * 4).round()));
     });
 
     test('addDays returns same result as Duration + Duration', () {
