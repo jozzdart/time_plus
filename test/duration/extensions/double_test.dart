@@ -47,6 +47,46 @@ void main() {
         expect(0.25.milliseconds, Duration(microseconds: 250));
         expect(0.125.milliseconds, Duration(microseconds: 125));
       });
+
+      test('weeks conversion preserves precision', () {
+        expect(1.0.weeks, Duration(days: 7));
+        expect(2.0.weeks, Duration(days: 14));
+        expect(0.5.weeks, Duration(days: 3, hours: 12));
+        expect(1.5.weeks, Duration(days: 10, hours: 12));
+      });
+
+      test('months conversion (approximation based on Gregorian average)', () {
+        // Note: These are approximations based on 30.436875 days per month
+        expect(1.0.months.inDays, closeTo(30, 1)); // ~30.44 days
+        expect(2.0.months.inDays, closeTo(61, 1)); // ~60.87 days
+        expect(
+            12.0.months.inDays, closeTo(365, 1)); // Should be close to a year
+        expect(0.5.months.inDays, closeTo(15, 1)); // ~15.22 days
+      });
+
+      test('years conversion (approximation based on Gregorian average)', () {
+        // Note: These are approximations based on 365.2425 days per year
+        expect(1.0.years.inDays, closeTo(365, 1)); // ~365.24 days
+        expect(4.0.years.inDays, closeTo(1461, 1)); // Leap year cycle
+        expect(0.5.years.inDays, closeTo(183, 1)); // Half year
+        expect(10.0.years.inDays, closeTo(3652, 1)); // Decade
+      });
+
+      test('decades conversion (approximation based on Gregorian average)', () {
+        // Note: These are approximations based on 3652.425 days per decade
+        expect(1.0.decades.inDays, closeTo(3652, 1)); // ~3652.43 days
+        expect(0.5.decades.inDays, closeTo(1826, 1)); // Half decade (5 years)
+        expect(2.0.decades.inDays, closeTo(7305, 1)); // 20 years
+      });
+
+      test('centuries conversion (approximation based on Gregorian average)',
+          () {
+        // Note: These are approximations based on 36524.25 days per century
+        expect(1.0.centuries.inDays, closeTo(36524, 1)); // ~36524.25 days
+        expect(
+            0.5.centuries.inDays, closeTo(18262, 1)); // Half century (50 years)
+        expect(0.1.centuries.inDays, closeTo(3652, 1)); // One decade
+      });
     });
 
     group('High precision tests', () {
@@ -148,6 +188,11 @@ void main() {
         expect(0.0.minutes, Duration.zero);
         expect(0.0.seconds, Duration.zero);
         expect(0.0.milliseconds, Duration.zero);
+        expect(0.0.weeks, Duration.zero);
+        expect(0.0.months, Duration.zero);
+        expect(0.0.years, Duration.zero);
+        expect(0.0.decades, Duration.zero);
+        expect(0.0.centuries, Duration.zero);
       });
 
       test('negative values', () {
@@ -158,6 +203,13 @@ void main() {
             Duration(seconds: -135)); // -2.25 minutes = -135 seconds
         expect((-0.5).seconds, Duration(milliseconds: -500));
         expect((-0.25).milliseconds, Duration(microseconds: -250));
+        expect((-1.0).weeks.inDays, -7);
+        expect((-1.0).months.inDays, closeTo(-30, 1)); // Approximation
+        expect((-1.0).years.inDays, closeTo(-365, 1)); // Approximation
+        expect(
+            (-0.5).decades.inDays, closeTo(-1826, 1)); // Half decade negative
+        expect(
+            (-0.1).centuries.inDays, closeTo(-3652, 1)); // One decade negative
       });
 
       test('very large values', () {
@@ -229,6 +281,29 @@ void main() {
             equals((value * 60).seconds.inMicroseconds));
         expect(value.seconds.inMicroseconds,
             equals((value * 1000).milliseconds.inMicroseconds));
+        expect(value.weeks.inMicroseconds,
+            equals((value * 7).days.inMicroseconds));
+      });
+
+      test('approximation unit consistency', () {
+        // Test consistency of approximation-based units with their constants
+        const value = 1.0;
+
+        // Test that 1 year ≈ 12 months (within reasonable tolerance)
+        expect(value.years.inMicroseconds,
+            closeTo(12 * value.months.inMicroseconds, 1e5));
+
+        // Test that 1 decade = 10 years
+        expect(value.decades.inMicroseconds,
+            closeTo(10 * value.years.inMicroseconds, 1e5));
+
+        // Test that 1 century = 10 decades
+        expect(value.centuries.inMicroseconds,
+            closeTo(10 * value.decades.inMicroseconds, 1e5));
+
+        // Test that 1 century = 100 years
+        expect(value.centuries.inMicroseconds,
+            closeTo(100 * value.years.inMicroseconds, 1e5));
       });
 
       test('inverse operations', () {
@@ -355,6 +430,65 @@ void main() {
       });
     });
 
+    group('Gregorian calendar approximations', () {
+      test('month approximation accuracy', () {
+        // Test that the approximation is reasonable for typical use cases
+        final oneMonth = 1.0.months;
+
+        // Should be between shortest month (28 days) and longest month (31 days)
+        expect(oneMonth.inDays, greaterThan(28));
+        expect(oneMonth.inDays, lessThan(32));
+
+        // 12 months should be close to 1 year
+        final twelveMonths = 12.0.months;
+        final oneYear = 1.0.years;
+        expect(twelveMonths.inDays, closeTo(oneYear.inDays, 1));
+      });
+
+      test('year approximation includes leap year calculation', () {
+        final oneYear = 1.0.years;
+
+        // Should be more than a common year (365 days) but less than 366 days
+        expect(oneYear.inDays, greaterThanOrEqualTo(365));
+        expect(oneYear.asDays, greaterThan(365));
+        expect(oneYear.inDays, lessThan(366));
+
+        // Should be approximately the Gregorian mean: 365.2425 days
+        expect(oneYear.inDays, closeTo(365.2425, 0.3));
+      });
+
+      test('decade and century scaling', () {
+        final oneYear = 1.0.years;
+        final oneDecade = 1.0.decades;
+        final oneCentury = 1.0.centuries;
+
+        // Decade should be exactly 10 years
+        expect(oneDecade.inDays, TimePlusConsts.roundedDaysInDecade);
+        expect(oneDecade.inDays, closeTo(oneYear.inDays * 10, 2));
+
+        // Century should be exactly 100 years or 10 decades
+        expect(
+            oneCentury.inDays, closeTo(TimePlusConsts.roundedDaysInCentury, 2));
+        expect(oneCentury.inDays,
+            closeTo(TimePlusConsts.roundedDaysInDecade * 10, 4));
+      });
+
+      test('fractional approximations maintain proportionality', () {
+        // Test that fractional values maintain correct proportional relationships
+        final halfYear = 0.5.years;
+        final quarterYear = 0.25.years;
+        final fullYear = 1.0.years;
+
+        expect(halfYear.inDays * 2, closeTo(fullYear.inDays, 1));
+        expect(quarterYear.inDays * 4, closeTo(fullYear.inDays, 1));
+
+        // Test months
+        final halfMonth = 0.5.months;
+        final fullMonth = 1.0.months;
+        expect(halfMonth.inDays * 2, closeTo(fullMonth.inDays, 0.001));
+      });
+    });
+
     group('Comparison with standard Duration constructors', () {
       test('integer equivalency', () {
         // When using whole numbers, should match standard Duration constructors
@@ -363,6 +497,7 @@ void main() {
         expect(45.0.minutes, equals(Duration(minutes: 45)));
         expect(30.0.seconds, equals(Duration(seconds: 30)));
         expect(500.0.milliseconds, equals(Duration(milliseconds: 500)));
+        expect(2.0.weeks, equals(Duration(days: 14)));
       });
 
       test('fractional advantage over standard constructors', () {
@@ -371,6 +506,28 @@ void main() {
         expect(2.5.hours, equals(Duration(hours: 2, minutes: 30)));
         expect(1.5.minutes, equals(Duration(minutes: 1, seconds: 30)));
         expect(1.5.seconds, equals(Duration(seconds: 1, milliseconds: 500)));
+        expect(1.5.weeks, equals(Duration(days: 10, hours: 12)));
+      });
+
+      test('approximation units not available in standard constructors', () {
+        // Standard Duration has no direct support for months, years, decades, centuries
+        // These extension methods provide approximations for these concepts
+
+        // 1 month ≈ 30.44 days (cannot be expressed precisely with standard Duration)
+        final oneMonth = 1.0.months;
+        expect(oneMonth.inDays, closeTo(30, 1));
+        expect(oneMonth.inDays,
+            greaterThanOrEqualTo(30)); // Should be slightly more than 30
+
+        // 1 year ≈ 365.24 days
+        final oneYear = 1.0.years;
+        expect(oneYear.inDays, closeTo(365, 1));
+        expect(oneYear.inDays,
+            greaterThanOrEqualTo(365)); // Should account for leap years
+
+        // Demonstrate fractional approximations work
+        expect(0.5.years.inDays, closeTo(183, 1)); // Half year
+        expect(1.5.months.inDays, closeTo(46, 1)); // 1.5 months
       });
     });
   });
