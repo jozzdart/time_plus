@@ -18,4 +18,17 @@ extension DateTimeIn on DateTime {
 
     return isLeapYear ? leapYearDays[month - 1] : commonYearDays[month - 1];
   }
+
+  /// Returns the number of days in the year of this [DateTime] instance.
+  ///
+  /// Handles leap years.
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime(2024, 1, 1).daysInYear; // 366
+  /// DateTime(2023, 1, 1).daysInYear; // 365
+  /// ```
+  int get daysInYear {
+    return isLeapYear ? 366 : 365;
+  }
 }
