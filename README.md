@@ -2,8 +2,8 @@
 
 <h3 align="center"><i>Make every microsecond count.</i></h3>
 <p align="center">
-        <img src="https://img.shields.io/codefactor/grade/github/jozzzzep/time_plus/main?style=flat-square">
-        <img src="https://img.shields.io/github/license/jozzzzep/time_plus?style=flat-square">
+        <img src="https://img.shields.io/codefactor/grade/github/jozzdart/time_plus/main?style=flat-square">
+        <img src="https://img.shields.io/github/license/jozzdart/time_plus?style=flat-square">
         <img src="https://img.shields.io/pub/points/time_plus?style=flat-square">
         <img src="https://img.shields.io/pub/v/time_plus?style=flat-square">
         
